@@ -11,6 +11,9 @@
     <groupId>com.zjl</groupId>
     <artifactId>college_parent</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>service</module>
+    </modules>
     <version>0.0.1-SNAPSHOT</version>
     <name>college_parent</name>
     <description>college_parent</description>
