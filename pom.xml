@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>service</module>
+        <module>common</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <name>college_parent</name>
@@ -48,6 +49,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!--Spring Cloud-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
