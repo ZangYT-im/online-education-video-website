@@ -33,7 +33,8 @@ import java.util.List;
 
 @Api(description = "讲师管理")
 @RestController
-@RequestMapping("/eduservice/edu-teacher")
+@CrossOrigin
+@RequestMapping("/eduservice/teacher")
 public class EduTeacherController {
 
     //把service注入
@@ -87,7 +88,7 @@ public class EduTeacherController {
         return R.ok().data("total", total).data("row", records);
     }
 
-    @GetMapping("pageTeacherCondition/{current}/{limit}")
+    @PostMapping("pageTeacherCondition/{current}/{limit}")
     public R pageTeacherCondition(@PathVariable long current,
                                   @PathVariable long limit,
                                   TeacherQuery teacherQuery) {
@@ -120,7 +121,7 @@ public class EduTeacherController {
         teacherService.page(pageTeacher, wrapper);
         long total = pageTeacher.getTotal();
         List<EduTeacher> records = pageTeacher.getRecords();
-        return R.ok().data("total", total).data("row", records);
+        return R.ok().data("total", total).data("rows", records);
     }
 
     //添加讲师方法
