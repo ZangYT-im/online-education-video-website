@@ -1,6 +1,7 @@
 package com.zjl.excel;
 
 import com.alibaba.excel.EasyExcel;
+import com.zjl.eduservice.entity.EduSubject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +17,20 @@ import java.util.List;
 public class TestEasyExcel {
 
     public static void main(String[] args) {
-//        //实现excel写的操作
-//        //1 设置写入文件夹地址和excel文件名称
-//        String fileName = "d://write.xlsx";
-//
-//
-//        //2 调用easyexcel里面的方法实现写操作
-//        //第二个参数：实体类的class
-//        EasyExcel.write(fileName, DemoData.class).sheet("学生列表").doWrite(getData());
-//
-
-        //实现excel读操作
+        //实现excel写的操作
+        //1 设置写入文件夹地址和excel文件名称
         String fileName = "d://write.xlsx";
 
-        EasyExcel.read(fileName, DemoData.class,new ExcelListener()).sheet().doRead();
+
+        //2 调用easyexcel里面的方法实现写操作
+        //第二个参数：实体类的class
+        EasyExcel.write(fileName, EduSubject.class).sheet("学生列表").doWrite(getData());
+
+
+//        //实现excel读操作
+//        String fileName = "d://write.xlsx";
+//
+//        EasyExcel.read(fileName, DemoData.class,new ExcelListener()).sheet().doRead();
     }
 
     //创建方法返回list集合
