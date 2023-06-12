@@ -8,16 +8,16 @@ export default {
       method: 'get',
     })
   },
-  //添加章节
-  addChapter(chapter) {
+  //添加小节
+  addVideo(video) {
     return request({
-      url: `/eduservice/chapter/addChapter`,
+      url: `/eduservice/video/addVideo`,
       method: 'post',
-      data:chapter
+      data:video
     })
   },
 
-  //根据id查询章节
+  //根据id查询小节
   getChapter(chapterId) {
     return request({
       url: `/eduservice/chapter/getChapterInfo/${chapterId}`,
@@ -33,9 +33,9 @@ export default {
     })
   },
   //删除章节
-  deleteChapter(chapterId) {
+  deleteVideo(id) {
     return request({
-      url: `/eduservice/chapter/${chapterId}`,
+      url: `/eduservice/video/${id}`,
       method: 'delete'
     })
   },

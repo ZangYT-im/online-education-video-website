@@ -114,6 +114,7 @@ export default {
         cover: '/static/01.jpg',
         price: 0
       },
+      courseId:'',
       BASE_API: process.env.BASE_API,//接口api地址
       teacherList: [],//封装所有讲师
       subjectOneList: [],//一级分类
@@ -206,13 +207,15 @@ export default {
       })
     },
 
+
     //查询所有讲师
     getListTeacher() {
       course.getListTeacher().then(response => {
         this.teacherList = response.data.items
       })
     },
-    saveOrUpdate() {
+    //添加课程
+    addCourse(){
       course.addCourseInfo(this.courseInfo).then(response => {
         //提示
         this.$message({
@@ -222,6 +225,29 @@ export default {
         //跳转第二步
         this.$router.push({path: '/course/chapter/' + response.data.courseId})
       })
+    },
+    //修改课程
+    updateCourse(){
+      course.updateCourseInfo(this.courseInfo)
+        .then(result =>{
+          //提示
+          this.$message({
+            type: 'success',
+            message: '修改课程信息成功!'
+          })
+          //跳转第二步
+          this.$router.push({path: '/course/chapter/' + this.courseId})
+        })
+    },
+    saveOrUpdate() {
+      //判断添加还是修改
+      if (!this.courseInfo.id){
+        //添加
+        this.addCourse()
+      }else {
+        this.updateCourse()
+      }
+
     }
   }
 }

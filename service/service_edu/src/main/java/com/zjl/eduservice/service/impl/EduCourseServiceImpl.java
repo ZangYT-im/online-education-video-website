@@ -3,10 +3,13 @@ package com.zjl.eduservice.service.impl;
 import com.zjl.eduservice.entity.EduCourse;
 import com.zjl.eduservice.entity.EduCourseDescription;
 import com.zjl.eduservice.entity.vo.CourseInfoVo;
+import com.zjl.eduservice.entity.vo.CoursePublishVo;
 import com.zjl.eduservice.mapper.EduCourseMapper;
+import com.zjl.eduservice.service.EduChapterService;
 import com.zjl.eduservice.service.EduCourseDescriptionService;
 import com.zjl.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zjl.eduservice.service.EduVideoService;
 import com.zjl.servicebase.exceptionhandler.CollegeException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +26,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
 
-
     //课程描述的注入
     @Autowired
     private EduCourseDescriptionService courseDescriptionService;
 
+
+    //注入小节和章节service
+    @Autowired
+    private EduVideoService eduVideoService;
+
+    @Autowired
+    private EduChapterService eduChapterService;
 
     //添加课程基本信息
     @Override
@@ -77,7 +86,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public void updateCourseInfo(CourseInfoVo courseInfoVo) {
         //1 修改课程表
         EduCourse eduCourse= new EduCourse();
-        BeanUtils.copyProperties(eduCourse,courseInfoVo);
+        BeanUtils.copyProperties(courseInfoVo,eduCourse);
 
         int update = baseMapper.updateById(eduCourse);
         if (update==0){
@@ -89,6 +98,37 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         description.setId(courseInfoVo.getId());
         description.setDescription(courseInfoVo.getDescription());
         courseDescriptionService.updateById(description);
+    }
 
+    @Override
+    public CoursePublishVo publishCourseInfo(String id) {
+        //调用mapper
+        CoursePublishVo publishCourseInfo = baseMapper.getPublishCourseInfo(id);
+        return publishCourseInfo;
+
+    }
+    //删除课程
+    @Override
+    public void removeCourse(String courseId) {
+        //1根据课程id删除小节
+        eduVideoService.removeVideoByCourseId(courseId);
+
+
+
+
+
+        //2 根据课程id删除章节
+
+        eduChapterService.removeChapterByCourseId(courseId);
+
+        //3 根据课程id删除描述
+        courseDescriptionService.removeById(courseId);
+
+
+        //4 根据课程id删除课程本身
+        int result = baseMapper.deleteById(courseId);
+        if (result==0){
+            throw new CollegeException(20001,"删除失败");
+        }
     }
 }

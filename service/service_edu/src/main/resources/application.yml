@@ -1,0 +1,25 @@
+# 服务端口
+server:
+  port: 8001
+  # ???
+spring:
+  application:
+    name: service-edu
+  # ?????dev?test?prod
+  profiles:
+    active: dev
+  # mysql?????
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/college?serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+  #??json???????
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  mapper-locations: classpath:com/zjl/eduservice/mapper/xml/*.xml
+
