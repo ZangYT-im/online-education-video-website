@@ -1,4 +1,4 @@
-package com.zjl;
+package com.zjl.vod;
 
 public class Main {
     public static void main(String[] args) {
