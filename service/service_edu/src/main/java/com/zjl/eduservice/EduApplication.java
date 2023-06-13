@@ -3,6 +3,8 @@ package com.zjl.eduservice;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
  * @project:college_parent
  */
 
+@EnableFeignClients
+@EnableDiscoveryClient//进行nacos注册的注解
 @MapperScan("com.zjl.mappper")
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.zjl"})

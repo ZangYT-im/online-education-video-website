@@ -135,7 +135,7 @@ export default {
         courseId: ''
       },
       video: {
-        videoOriginalName:'',//视频名称
+        videoOriginalName: '',//视频名称
         title: '',
         sort: 0,
         free: 0,
@@ -154,11 +154,28 @@ export default {
     }
   },
   methods: {
-    beforeVodRemove(){
 
+    //点击x
+    beforeVodRemove(file) {
+      return this.$confirm(`确定一移除${file.name}?`)
     },
-    handleVodRemove(){
-
+    //点击确定
+    handleVodRemove(file, fileList) {
+      //调用接口删除视频
+      video.deleteAliyunVod(this.video.videoSourceId)
+        .then(result => {
+          //提示信息
+          this.$message({
+            type: 'success',
+            message: '删除视频成功!'
+          });
+          //把文件列表清空
+          this.fileList = []
+          //把video视频id和视频名称值清空
+          this.video.videoSourceId=''
+          //上传视频名称赋值
+          this.video.videoOriginalName=''
+        })
     },
     //上传成功之后
     handleVodUploadSuccess(response, file, fileList) {

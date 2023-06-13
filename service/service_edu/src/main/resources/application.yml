@@ -20,6 +20,13 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
+    # nacos服务地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
 mybatis-plus:
   mapper-locations: classpath:com/zjl/eduservice/mapper/xml/*.xml
+
 
