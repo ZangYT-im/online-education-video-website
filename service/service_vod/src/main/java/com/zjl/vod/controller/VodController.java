@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @User: zangj
  * @Author: zjl
@@ -58,5 +60,13 @@ public class VodController {
             e.printStackTrace();
             throw new CollegeException(20001, "删除视频失败");
         }
+    }
+
+    //删除多个阿里云视频
+    //参数是多个视频id
+    @DeleteMapping("delete-batch")
+    public R deleteBatch(@RequestParam("videoIdList") List<String> videoIdList){
+        vodService.removeMoreAliyunVideo(videoIdList);
+        return R.ok();
     }
 }

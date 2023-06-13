@@ -5,6 +5,7 @@ import com.zjl.commonutils.R;
 import com.zjl.eduservice.client.VodClient;
 import com.zjl.eduservice.entity.EduVideo;
 import com.zjl.eduservice.service.EduVideoService;
+import com.zjl.servicebase.exceptionhandler.CollegeException;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -49,8 +50,13 @@ public class EduVideoController {
         String videoSourceId = eduVideo.getVideoSourceId();
 
         //根据视频id远程调用视频删除
-        if (!StringUtils.isEmpty(videoSourceId))
-            vodClient.removeAlyVideo(videoSourceId);
+        if (!StringUtils.isEmpty(videoSourceId)) {
+            R result = vodClient.removeAlyVideo(videoSourceId);
+            if (result.getCode() == 20001){
+                throw new CollegeException(20001,"删除视频失败，熔断器..");
+            }
+        }
+
 
         //删除小节
         videoService.removeById(id);

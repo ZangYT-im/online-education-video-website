@@ -1,5 +1,6 @@
 package com.zjl.eduservice.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zjl.eduservice.entity.EduVideo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface EduVideoMapper extends BaseMapper<EduVideo> {
 
+    void selectList(QueryWrapper<Object> wrapperVideo);
 }
