@@ -56,14 +56,10 @@ public class EduVideoController {
                 throw new CollegeException(20001,"删除视频失败，熔断器..");
             }
         }
-
-
         //删除小节
         videoService.removeById(id);
         return R.ok();
     }
-
-
     //修改小节 todo
 
 }
