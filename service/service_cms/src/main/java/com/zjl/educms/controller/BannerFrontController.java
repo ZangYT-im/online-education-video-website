@@ -32,7 +32,6 @@ public class BannerFrontController {
     //查询所有banner
     @GetMapping("getAllBanner")
     public R getAllBanner(){
-
       List<CrmBanner> list =  bannerService.selectAllBanner();
         return R.ok().data("list",list);
     }
