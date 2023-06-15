@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 //@EnableFeignClients
 //@EnableDiscoveryClient//进行nacos注册的注解
-@MapperScan("com.zjl.educms.mappper")
+@MapperScan("com.zjl.educms.mapper")
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.zjl"})
 public class CmsApplication {
