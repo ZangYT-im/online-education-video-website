@@ -4,7 +4,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 /**
  * @User: zangj
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @project:college_parent
  */
 
-@ComponentScan({"com.zjl"})
+@ComponentScan(basePackages = {"com.zjl"})
 @SpringBootApplication
 @MapperScan("com.zjl.educenter.mapper")
 public class UcenterApplication {
