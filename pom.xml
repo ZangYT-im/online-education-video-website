@@ -18,6 +18,7 @@
         <module>service/service_cms</module>
         <module>service/service_acl</module>
         <module>service/service_msm</module>
+        <module>service/service_ucenter</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <name>college_parent</name>
