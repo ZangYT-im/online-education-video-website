@@ -2,6 +2,9 @@ package com.zjl.eduservice.entity.chapter;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @User: zangj
  * @Author: zjl
@@ -15,4 +18,6 @@ public class VideoVo {
     private String id;
 
     private  String title;
+    private String videoSourceId;//视频id
+
 }

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2023-06-16
  */
 @RestController
-@RequestMapping("/educenter/ucenter-member")
+@RequestMapping("/educenter/member")
 @CrossOrigin
 public class UcenterMemberController {
 
