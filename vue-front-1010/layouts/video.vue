@@ -3,7 +3,8 @@
     <div className="head">
       <a href="#" title="谷粒学院">
         <img className="logo" src="~/assets/img/logo.png" lt="谷粒学院">
-      </a></div>
+      </a>
+    </div>
     <div className="body">
       <div className="content">
         <nuxt/>

@@ -5,47 +5,50 @@
       <section class="path-wrap txtOf hLh30">
         <a href="#" title class="c-999 fsize14">首页</a>
         \
-        <a href="#" title class="c-999 fsize14">{{courseWebVo.subjectLevelOne}}</a>
+        <a href="#" title class="c-999 fsize14">{{ courseWebVo.subjectLevelOne }}</a>
         \
-        <span class="c-333 fsize14">{{courseWebVo.subjectLevelTwo}}</span>
+        <span class="c-333 fsize14">{{ courseWebVo.subjectLevelTwo }}</span>
       </section>
       <div>
         <article class="c-v-pic-wrap" style="height: 357px;">
           <section class="p-h-video-box" id="videoPlay">
-            <img :src="courseWebVo.cover" :alt="courseWebVo.title" class="dis c-v-pic">
+            <img height="357px" :src="courseWebVo.cover" :alt="courseWebVo.title" class="dis c-v-pic">
           </section>
         </article>
         <aside class="c-attr-wrap">
           <section class="ml20 mr15">
             <h2 class="hLh30 txtOf mt15">
-              <span class="c-fff fsize24">{{courseWebVo.title}}</span>
+              <span class="c-fff fsize24">{{ courseWebVo.title }}</span>
             </h2>
             <section class="c-attr-jg">
               <span class="c-fff">价格：</span>
-              <b class="c-yellow" style="font-size:24px;">￥{{courseWebVo.price}}</b>
+              <b class="c-yellow" style="font-size:24px;">￥{{ courseWebVo.price }}</b>
             </section>
             <section class="c-attr-mt c-attr-undis">
-              <span class="c-fff fsize14">主讲： {{courseWebVo.teacherName}}&nbsp;&nbsp;&nbsp;</span>
+              <span class="c-fff fsize14">主讲： {{ courseWebVo.teacherName }}&nbsp;&nbsp;&nbsp;</span>
             </section>
             <section class="c-attr-mt of">
               <span class="ml10 vam">
                 <em class="icon18 scIcon"></em>
-                <a class="c-fff vam" title="收藏" href="#" >收藏</a>
+                <a class="c-fff vam" title="收藏" href="#">收藏</a>
               </span>
             </section>
-            <section class="c-attr-mt">
-              <a href="#" title="立即观看" class="comm-btn c-btn-3">立即观看</a>
+            <section v-if="Number(courseWebVo.price)===0" class="c-attr-mt">
+              <a href="#" @click="createOrders()" title="立即观看" class="comm-btn c-btn-3">立即观看</a>
+            </section>
+            <section v-else class="c-attr-mt">
+              <a href="#" @click="createOrders()" title="立即购买" class="comm-btn c-btn-3">立即购买</a>
             </section>
           </section>
         </aside>
         <aside class="thr-attr-box">
-          <ol class="thr-attr-ol clearfix">
+          <ol class="thr-attr-ol">
             <li>
               <p>&nbsp;</p>
               <aside>
                 <span class="c-fff f-fM">购买数</span>
                 <br>
-                <h6 class="c-fff f-fM mt10">{{courseWebVo.buyCount}}</h6>
+                <h6 class="c-fff f-fM mt10">{{ courseWebVo.buyCount }}</h6>
               </aside>
             </li>
             <li>
@@ -85,7 +88,7 @@
                   </h6>
                   <div class="course-txt-body-wrap">
                     <section class="course-txt-body">
-                      <p v-html="courseWebVo.description">{{courseWebVo.description}}</p>
+                      <p v-html="courseWebVo.description">{{ courseWebVo.description }}</p>
                     </section>
                   </div>
                 </div>
@@ -101,16 +104,16 @@
                           <!-- 文件目录 -->
                           <li class="lh-menu-stair" v-for="chapter in chapterVideoList" :key="chapter.id">
                             <a href="javascript: void(0)" :title="chapter.title" class="current-1">
-                              <em class="lh-menu-i-1 icon18 mr10"></em>{{chapter.title}}
+                              <em class="lh-menu-i-1 icon18 mr10"></em>{{ chapter.title }}
                             </a>
 
                             <ol class="lh-menu-ol" style="display: block;">
                               <li class="lh-menu-second ml30" v-for="video in chapter.children" :key="video.id">
-                                <a :href="'/player/'+video.videoSourceId" >
+                                <a :href="'/player/'+video.videoSourceId">
                                   <span class="fr">
                                     <i class="free-icon vam mr10">免费试听</i>
                                   </span>
-                                  <em class="lh-menu-i-2 icon16 mr5">&nbsp;</em>{{video.title}}
+                                  <em class="lh-menu-i-2 icon16 mr5">&nbsp;</em>{{ video.title }}
                                 </a>
                               </li>
 
@@ -142,10 +145,10 @@
                       </a>
                     </div>
                     <section class="hLh30 txtOf">
-                      <a class="c-333 fsize16 fl" href="#">{{courseWebVo.teacherName}}</a>
+                      <a class="c-333 fsize16 fl" href="#">{{ courseWebVo.teacherName }}</a>
                     </section>
                     <section class="hLh20 txtOf">
-                      <span class="c-999">{{courseWebVo.intro}}</span>
+                      <span class="c-999">{{ courseWebVo.intro }}</span>
                     </section>
                   </li>
                 </ul>
@@ -162,15 +165,29 @@
 
 <script>
 import courseApi from '@/api/course'
+import ordersApi from '@/api/orders'
+
 export default {
-  asyncData({ params, error }) {
+  asyncData({params, error}) {
     return courseApi.getCourseInfo(params.id)
       .then(response => {
         return {
           courseWebVo: response.data.data.courseWebVo,
-          chapterVideoList: response.data.data.chapterVideoList
+          chapterVideoList: response.data.data.chapterVideoList,
+          courseId: params.id
         }
       })
+  },
+  methods: {
+    //生成订单
+    createOrders() {
+      ordersApi.createOrders(this.courseId)
+        .then(res => {
+          //获取返回订单号
+          //生成订单之后,跳转订单显示页面
+          this.$router.push({path: '/orders/' + res.data.data.orderId})
+        })
+    }
   }
 };
 </script>
