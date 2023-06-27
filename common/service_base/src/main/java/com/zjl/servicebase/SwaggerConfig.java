@@ -28,7 +28,7 @@ public class SwaggerConfig {
                 .groupName("webApi")
                 .apiInfo(webApiInfo())
                 .select()
-                .paths(Predicates.not(PathSelectors.regex("/admin/.*")))//有这个路径就不显示
+//                .paths(Predicates.not(PathSelectors.regex("/admin/.*")))//有这个路径就不显示
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
 

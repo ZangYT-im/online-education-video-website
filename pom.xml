@@ -20,6 +20,10 @@
         <module>service/service_msm</module>
         <module>service/service_ucenter</module>
         <module>service/service_order</module>
+        <module>service/service_statistics</module>
+        <module>infrastructure</module>
+        <module>infrastructure/api_gateway</module>
+        <module>common/spring_security</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <name>college_parent</name>

@@ -5,13 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.zjl</groupId>
-        <artifactId>college_parent</artifactId>
+        <artifactId>service</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>service_acl</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.zjl</groupId>
+            <artifactId>spring_security</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

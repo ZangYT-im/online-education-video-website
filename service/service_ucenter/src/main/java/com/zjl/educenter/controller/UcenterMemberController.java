@@ -71,9 +71,14 @@ public class UcenterMemberController {
         UcenterMemberOrder ucenterMemberOrder = new UcenterMemberOrder();
         //把member对象里面的值复制给UcenterMemberOrder对象
         BeanUtils.copyProperties(member, ucenterMemberOrder);
-
         return ucenterMemberOrder;
     }
 
+    //查询某一天注册人数
+    @GetMapping("countRegister/{day}")
+    public R countRegister(@PathVariable String day){
+      Integer count =  memberService.countRegisterDay(day);
+      return R.ok().data("countRegister",count);
+    }
 }
 
