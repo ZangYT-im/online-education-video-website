@@ -55,4 +55,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return securityUser;
     }
 
+    public static void main(String[] args) {
+//        6/20  3/10    0.3
+//
+//        8/24  4/12  0.33
+//
+//        7/24        0.2916
+
+        float i  =6/20;
+        System.out.println("6/20:" + i);
+        System.out.println("8/24:"+8/24);
+        System.out.println("7/24:"+7/24);
+    }
+
 }

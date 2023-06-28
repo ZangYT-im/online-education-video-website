@@ -21,6 +21,12 @@ public class IndexController {
     @Autowired
     private IndexService indexService;
 
+
+    @PostMapping("/login")
+    public R login(){
+        return R.ok().data("token","admin");
+    }
+
     /**
      * 根据token获取用户信息
      */
